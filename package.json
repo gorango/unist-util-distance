@@ -1,32 +1,49 @@
 {
-	"name": "unist-util-distance",
-	"version": "1.0.0",
-	"description": "Unist utility for finding the distance between nodes",
-	"sideEffects": false,
-	"type": "module",
-	"types": "index.d.ts",
-	"exports": "./index.js",
-	"files": [
-		"index.js",
-		"index.d.ts"
-	],
-	"scripts": {
-		"build": "tsc --build --clean && tsc --build",
-		"test": "node test.js",
-		"coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node test.js"
-	},
-	"dependencies": {
-		"unist-util-ancestor": "^1.4.3",
-		"unist-util-is": "^6.0.0",
-		"unist-util-visit-parents": "^6.0.1"
-	},
-	"devDependencies": {
-		"@types/tape": "^5.6.4",
-		"@types/unist": "^3.0.2",
-		"c8": "^9.1.0",
-		"tape": "^5.7.5",
-		"typescript": "^5.4.3",
-		"unist-builder": "^4.0.0",
-		"unist-util-find": "^3.0.0"
-	}
+  "name": "unist-util-distance",
+  "version": "1.0.0",
+  "description": "Unist utility for finding the distance between nodes",
+  "license": "MIT",
+  "keywords": [
+    "unist",
+    "remark",
+    "retext",
+    "rehype",
+    "hast",
+    "mdast",
+    "nlcst",
+    "find",
+    "distance",
+    "nodes"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gorango/unist-util-distance.git"
+  },
+  "bugs": "https://github.com/gorango/unist-util-distance/issues",
+  "sideEffects": false,
+  "type": "module",
+  "types": "index.d.ts",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build",
+    "test": "node test.js",
+    "coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node test.js",
+    "release": "npx standard-version -i changelog.md"
+  },
+  "dependencies": {
+    "unist-util-visit-parents": "^6.0.2"
+  },
+  "devDependencies": {
+    "@types/tape": "^5.8.1",
+    "@types/unist": "^3.0.3",
+    "c8": "^11.0.0",
+    "tape": "^5.9.0",
+    "typescript": "^6.0.2",
+    "unist-builder": "^4.0.0",
+    "unist-util-find": "^3.0.0"
+  }
 }

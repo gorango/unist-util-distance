@@ -39,22 +39,13 @@ test('throws useful errors', (t) => {
 
 	t.throws(() => {
 		// @ts-expect-error runtime
-		findDistance(tree, [])
+		findDistance(tree, {})
 	}, 'should fail with empty nodes')
 
 	t.throws(() => {
-		// @ts-expect-error runtime
 		findDistance(
 			tree,
-			{ type: 'leaf', value: 'leaf 55' }
-		)
-	}, 'should fail with non-existent node')
-
-	t.throws(() => {
-		findDistance(
-			tree,
-			// @ts-expect-error runtime
-			{ type: 'leaf', value: 'leaf 5' },
+			{ type: 'leaf', value: 'leaf 5', children: [] },
 			{ type: 'leaf', value: 'leaf 53' },
 		)
 	}, 'should fail with non-existent nodes')
@@ -70,5 +61,54 @@ test('should find distance between two nodes', (t) => {
 		find(tree, { value: 'leaf 1' }),
 	)
 	t.equal(actual, 6)
+	t.end()
+})
+
+test('should find distance between siblings', (t) => {
+	const actual = findDistance(
+		tree,
+		// @ts-expect-error find could return undefined
+		find(tree, { value: 'leaf 1' }),
+		find(tree, { value: 'leaf 2' }),
+	)
+	t.equal(actual, 2)
+	t.end()
+})
+
+test('should handle ancestor without depth property', (t) => {
+	const treeWithData = u('root', [u('leaf', 'leaf 0')])
+	const leaf = treeWithData.children[0]
+	const actual = findDistance(
+		treeWithData,
+		leaf,
+		treeWithData,
+	)
+	t.equal(actual, 0)
+	t.end()
+})
+
+test('should return 0 for same node', (t) => {
+	const leaf = find(tree, { value: 'leaf 0' })
+  // @ts-expect-error find could return undefined
+	const actual = findDistance(tree, leaf, leaf)
+	t.equal(actual, 0)
+	t.end()
+})
+
+test('should return 0 when one node is ancestor of another', (t) => {
+	const node = tree.children[0]
+	const leaf = find(tree, { value: 'leaf 0' })
+  // @ts-expect-error find could return undefined
+	const actual = findDistance(tree, node, leaf)
+	t.equal(actual, 0)
+	t.end()
+})
+
+test('should return 0 when nodeA is ancestor of nodeB', (t) => {
+	const node = tree.children[0]
+	const leaf = find(tree, { value: 'leaf 0' })
+  // @ts-expect-error find could return undefined
+	const actual = findDistance(tree, leaf, node)
+	t.equal(actual, 0)
 	t.end()
 })

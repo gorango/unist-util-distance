@@ -4,9 +4,7 @@
  * @typedef { import('unist').Literal } Literal
  */
 
-import { is } from 'unist-util-is'
-import { EXIT, visitParents } from 'unist-util-visit-parents'
-import findAncestor from 'unist-util-ancestor'
+import { visitParents } from 'unist-util-visit-parents'
 
 /**
  * @typedef { Node | Parent | Literal } NodeLike
@@ -18,7 +16,7 @@ import findAncestor from 'unist-util-ancestor'
  * @param {Parent} tree - Root node
  * @param {NodeLike} nodeA - First node
  * @param {NodeLike} nodeB - Second node
- * @returns {number} - Ancestor Parent with data.depth
+ * @returns {number} - Distance between nodes
  */
 export function findDistance(tree, nodeA, nodeB) {
 	if (!tree) {
@@ -29,27 +27,28 @@ export function findDistance(tree, nodeA, nodeB) {
 		throw new Error('unist-util-distance requires two nodes to find the distance')
 	}
 
-	const nodesToFind = [nodeA, nodeB]
-	const ancestor = findAncestor(tree, nodesToFind, true)
+	if (nodeA === nodeB) return 0
 
-	const rootNode = nodesToFind.find(node => is(node, ancestor))
-	if (rootNode) {
-		return ancestor.data?.depth || 0
-	}
+	const paths = new Map()
 
-	let a = 0
-	let b = 0
-	visitParents(ancestor, (node, ancestors) => {
-		if (a && b) {
-			return EXIT
-		}
-		if (is(node, nodeA)) {
-			a = ancestors.length
-		}
-		if (is(node, nodeB)) {
-			b = ancestors.length
-		}
+	visitParents(tree, (node, ancestors) => {
+		if (node === nodeA) paths.set(nodeA, [...ancestors, node])
+		if (node === nodeB) paths.set(nodeB, [...ancestors, node])
 	})
 
-	return a + b
+	if (paths.size !== 2) {
+		throw new Error('unist-util-distance requires all nodes be contained in the tree')
+	}
+
+	const pathA = paths.get(nodeA)
+	const pathB = paths.get(nodeB)
+
+	if (pathA.includes(nodeB) || pathB.includes(nodeA)) return 0
+
+	let lcaDepth = 0
+	for (let i = 0; i < Math.min(pathA.length, pathB.length); i++) {
+		if (pathA[i] === pathB[i]) lcaDepth = i + 1
+	}
+
+	return pathA.length + pathB.length - 2 * lcaDepth
 }

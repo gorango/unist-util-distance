@@ -35,7 +35,7 @@ const tree =
   ])
 
 const nodeA = { value: 'leaf 0' }
-const nodeB = { value: 'leaf 1' }]
+const nodeB = { value: 'leaf 1' }
 
 console.log(inspect(findDistance(tree, nodeA, nodeB)))
 ```
@@ -48,13 +48,15 @@ Yields:
 
 ### API
 
-#### `findDistance(tree, nodesToFind)`
+#### `findDistance(tree, nodeA, nodeB)`
 
-Return the closest node that contains all `nodesToFind` along with `data.depth` containing the distance between the deepest node.
+Return the distance between two nodes.
 
-- `tree` ([`Parent`](https://github.com/wooorm/unist#parent)) - Unist node to search
-- `nodeA` ([`Parent[]`](https://github.com/wooorm/unist#parent)) - First node
-- `nodeB` ([`Parent[]`](https://github.com/wooorm/unist#parent)) - Second node
+- `tree` ([`Parent`](https://github.com/wooorm/unist#parent)) - Unist tree to search
+- `nodeA` ([`Node`](https://github.com/wooorm/unist#node)) - First node
+- `nodeB` ([`Node`](https://github.com/wooorm/unist#node)) - Second node
+
+Returns a `number` representing the distance (number of edges) between the nodes. Returns `0` if nodes are the same or one is an ancestor of the other.
 
 ## Test
 
