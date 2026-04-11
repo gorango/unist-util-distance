@@ -1,5 +1,9 @@
 # unist-util-distance
 
+[![Coverage][coverage-badge]][coverage]
+[![Types][types-badge]][types]
+[![Size][size-badge]][size]
+
 [Unist](https://github.com/wooorm/unist) utility for finding the distance between nodes. Useful for working with [remark](https://github.com/wooorm/remark), [rehype](https://github.com/wooorm/rehype) and [retext](https://github.com/wooorm/retext).
 
 ## Install
@@ -63,3 +67,18 @@ Returns a `number` representing the distance (number of edges) between the nodes
 Run `npm test` to run tests.
 
 Run `npm run coverage` to produce a test coverage report.
+
+## License
+
+[MIT][license] © [Goran Spasojevic][author]
+
+<!-- Definitions -->
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/gorango/unist-util-distance.svg
+[coverage]: https://codecov.io/github/gorango/unist-util-distance
+[types-badge]: https://badgen.net/npm/types/unist-util-distance
+[types]: https://www.npmjs.com/package/unist-util-distance
+[size-badge]: https://img.shields.io/bundlephobia/minzip/unist-util-distance.svg
+[size]: https://bundlephobia.com/result?p=unist-util-distance
+[license]: license
+[author]: https://github.com/gorango
