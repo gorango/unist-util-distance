@@ -16,7 +16,7 @@ npm install unist-util-distance
 
 ```js
 import { u } from 'unist-builder'
-import { inspect } from 'unist-util-inspect'
+import { find } from 'unist-util-find'
 import { findDistance } from 'unist-util-distance'
 
 const tree =
@@ -38,10 +38,10 @@ const tree =
     u('leaf', 'leaf 4')
   ])
 
-const nodeA = { value: 'leaf 0' }
-const nodeB = { value: 'leaf 1' }
+const nodeA = find(tree, { value: 'leaf 0' })
+const nodeB = find(tree, { value: 'leaf 1' })
 
-console.log(inspect(findDistance(tree, nodeA, nodeB)))
+console.log(findDistance(tree, nodeA, nodeB))
 ```
 
 Yields:
