@@ -1,21 +1,15 @@
 /**
- * @typedef { import('unist').Node } Node
- * @typedef { import('unist').Parent } Parent
- * @typedef { import('unist').Literal } Literal
+ * @import { Node, Parent } from 'unist'
  */
 
 import { visitParents } from 'unist-util-visit-parents'
 
 /**
- * @typedef { Node | Parent | Literal } NodeLike
- */
-
-/**
  * Find distance between two nodes
  *
  * @param {Parent} tree - Root node
- * @param {NodeLike} nodeA - First node
- * @param {NodeLike} nodeB - Second node
+ * @param {Node} nodeA - First node
+ * @param {Node} nodeB - Second node
  * @returns {number} - Distance between nodes
  */
 export function findDistance(tree, nodeA, nodeB) {

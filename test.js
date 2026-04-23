@@ -45,6 +45,7 @@ test('throws useful errors', (t) => {
 	t.throws(() => {
 		findDistance(
 			tree,
+			// @ts-expect-error testing runtime error with malformed nodes
 			{ type: 'leaf', value: 'leaf 5', children: [] },
 			{ type: 'leaf', value: 'leaf 53' },
 		)
